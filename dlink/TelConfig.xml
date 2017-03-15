@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VOIP_CONFIG_FILE>
+    <version>{{.Version}}</version>
+    <QOS_CONFIG_MODULE>
+        <Enable_VLAN>{{.VlanPhone}}</Enable_VLAN>
+        <VLAN_ID>{{.VlanPhoneNumb}}</VLAN_ID>
+        <VLAN_Recv_Check>{{.VlanComp}}</VLAN_Recv_Check>
+        <PVID_Value>{{.VlanCompNumb}}</PVID_Value>
+    </QOS_CONFIG_MODULE>
+    <DOT1X_CONFIG_MODULE>
+        <Xsup_User>admin</Xsup_User>
+        <Xsup_Password>Eb@l@</Xsup_Password>
+    </DOT1X_CONFIG_MODULE>
+    <SIP_CONFIG_MODULE>
+        <SIP_Line_List>
+            <SIP_Line_List_Entry>
+                <ID>SIP1</ID>
+                <Phone_Number>4937</Phone_Number>
+                <Display_Name>dlink-test</Display_Name>
+                <Register_User>4937</Register_User>
+                <Register_Pswd>Eb@l@</Register_Pswd>
+                <Enable_Reg>1</Enable_Reg>
+            </SIP_Line_List_Entry>
+            <SIP_Line_List_Entry>
+                <ID>SIP2</ID>
+                <Phone_Number>4937</Phone_Number>
+                <Display_Name>dlink-test</Display_Name>
+                <Register_User>4937</Register_User>
+                <Register_Pswd>Eb@l@</Register_Pswd>
+                <Enable_Reg>0</Enable_Reg>
+            </SIP_Line_List_Entry>
+        </SIP_Line_List>
+    </SIP_CONFIG_MODULE>
+</VOIP_CONFIG_FILE>
