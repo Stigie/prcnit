@@ -14,7 +14,6 @@ import (
 	"log"
 	_ "go/constant"
 	"os"
-
 )
 
 var config struct {
@@ -28,10 +27,9 @@ type Page struct {
 	Title  string
 	Msg    string
 	ContWr string
-	Phone    string
-	SIP1 string
-	SIP2 string
-
+	Phone  string
+	SIP1   string
+	SIP2   string
 }
 
 type Phone struct {
@@ -40,9 +38,9 @@ type Phone struct {
 	Ip   string
 }
 type SipUser struct {
-	User string `db:"internalnumber"`
+	User        string `db:"internalnumber"`
 	Description string `db:"description"`
-	Password  string `db:"password"`
+	Password    string `db:"password"`
 }
 
 type User struct {
@@ -62,7 +60,6 @@ type PhoneConf struct {
 }
 
 func (c *PhoneConf) MakeConfig(pf *Phone) (string, error) {
-	latexTemplate := template.New("Config template")
 	latexTemplate, err := template.ParseFiles("TelConfig.xml")
 	if err != nil {
 		return "", err
@@ -118,15 +115,14 @@ func index(w http.ResponseWriter, r *http.Request) {
 	}
 	listPhone := Page{Phone: tempString, Title: "", SIP1: tempStringSip, SIP2: tempStringSip}
 	w.Header().Set("Content-type", "text/html")
-		t, _ := template.ParseFiles("index.html")
-		t.Execute(w, &listPhone)
+	t, _ := template.ParseFiles("index.html")
+	t.Execute(w, &listPhone)
 
 }
 func exec(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	//fmt.Fprint(w, r.PostForm)
 }
-
 
 func main() {
 
