@@ -95,21 +95,31 @@ func (s *server) indexHandler(w http.ResponseWriter, r *http.Request) {
 	PhoneData := make([]Phone, 0)
 	err := s.Db.Select(&PhoneData, "SELECT `mac`, `name`, INET_NTOA(`ip`) AS ip FROM `unetmap_host` WHERE `type_id` = 3 AND `ip` IS NOT NULL ORDER BY `id` DESC")
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
+		return
 	}
 	SipUserData := make([]SipUser, 0)
 	err = s.Db.Select(&SipUserData, "SELECT `internalnumber`, `description`, `password` FROM `phones_phone` ORDER BY `id` DESC")
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
+		return
 	}
 	listPhone := Page{Phone: PhoneData, Title: "", SIP1: SipUserData, SIP2: SipUserData}
 	t, err := template.ParseFiles("index.html")
+	if err != nil {
+		log.Print(err)
+		return
+	}
 	t.Execute(w, &listPhone)
 
 }
 func (s *server) execHandler(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
+	err := r.ParseForm()
 	//fmt.Fprint(w, r.PostForm)
+	if err != nil {
+		log.Print(err)
+		return
+	}
 }
 
 func main() {
