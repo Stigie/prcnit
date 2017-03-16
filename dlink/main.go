@@ -142,7 +142,7 @@ func main() {
 	http.HandleFunc("/exec/", exec)
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
-	err = http.ListenAndServe(":80", nil)
+	err = http.ListenAndServe(":4004", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
