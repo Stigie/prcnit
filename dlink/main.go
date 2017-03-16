@@ -2,7 +2,8 @@ package main
 
 import (
 	"net/http"
-	"text/template"
+	"html/template"
+	textTemplate "text/template"
 	"encoding/json"
 	"flag"
 	"io/ioutil"
@@ -24,9 +25,9 @@ type Page struct {
 	Title  string
 	Msg    string
 	ContWr string
-	Phone  string
-	SIP1   string
-	SIP2   string
+	Phone  []Phone
+	SIP1   []SipUser
+	SIP2   []SipUser
 }
 
 type Phone struct {
@@ -61,7 +62,7 @@ type server struct {
 }
 
 func (c *PhoneConf) MakeConfig(pf *Phone) (string, error) {
-	latexTemplate, err := template.ParseFiles("TelConfig.xml")
+	latexTemplate, err := textTemplate.ParseFiles("TelConfig.xml")
 	if err != nil {
 		return "", err
 	}
@@ -101,20 +102,12 @@ func (s *server) indexHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	tempString := ""
-	for _, element := range PhoneData {
-		tempString += "<option>" + element.Name + " " + element.Ip + " " + element.Mac + "</option>\n"
-	}
-	tempStringSip := ""
-	for _, element := range SipUserData {
-		tempStringSip += "<option>" + element.User + " " + element.Description + " " + element.Password + "</option>\n"
-	}
-	listPhone := Page{Phone: tempString, Title: "", SIP1: tempStringSip, SIP2: tempStringSip}
+	listPhone := Page{Phone: PhoneData, Title: "", SIP1: SipUserData, SIP2: SipUserData}
 	t, err := template.ParseFiles("index.html")
 	t.Execute(w, &listPhone)
 
 }
-func exec(w http.ResponseWriter, r *http.Request) {
+func (s *server) execHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	//fmt.Fprint(w, r.PostForm)
 }
@@ -140,10 +133,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-
-
 	http.HandleFunc("/", s.indexHandler)
-	http.HandleFunc("/exec/", exec)
+	http.HandleFunc("/exec/", s.execHandler)
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	log.Print("Server started at port 4004")

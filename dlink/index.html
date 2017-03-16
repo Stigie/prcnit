@@ -12,20 +12,32 @@
     <div class="pole pole1">
         <label>Телефон:</label>
         <select name="ti">
-            {{.Phone}}
+            {{ range $i, $e := .Phone}}
+            {{with $e}}
+            <option>{{ .Name }} {{.Mac}} {{.Ip}}</option>
+            {{end}}
+            {{end}}
         </select>
     </div>
     <div class="pole pole2">
         <div class="block">
             <label>SIP1:</label>
             <select name="pidor" class="list_ch">
-                {{.SIP1}}
+                {{ range $i, $e := .SIP1}}
+                {{with $e}}
+                <option>{{ .User }} {{ .Description }}</option>
+                {{end}}
+                {{end}}
             </select>
         </div>
         <div class="block">
             <label>SIP2:</label>
             <select name="pizdets" class="list_ch">
-                {{.SIP2}}
+                {{ range $i, $e := .SIP2}}
+                {{with $e}}
+                <option>{{ .User }} {{ .Description }}</option>
+                {{end}}
+                {{end}}
             </select>
         </div>
     </div>
