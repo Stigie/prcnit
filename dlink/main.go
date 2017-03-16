@@ -56,6 +56,10 @@ type PhoneConf struct {
 	Version       string
 }
 
+type server struct {
+	Db *sqlx.DB
+}
+
 func (c *PhoneConf) MakeConfig(pf *Phone) (string, error) {
 	latexTemplate, err := template.ParseFiles("TelConfig.xml")
 	if err != nil {
@@ -86,19 +90,14 @@ var (
 	configFile = flag.String("Config", "conf.json", "Where to read the Config from")
 )
 
-func index(w http.ResponseWriter, r *http.Request) {
-	dataBase, err := sqlx.Connect("mysql", config.MysqlLogin+":"+config.MysqlPassword+"@tcp("+config.MysqlHost+")/"+config.MysqlDb+"?charset=utf8")
-	defer dataBase.Close()
-	if err != nil {
-		log.Print(err)
-	}
+func (s *server) indexHandler(w http.ResponseWriter, r *http.Request) {
 	PhoneData := make([]Phone, 0)
-	err = dataBase.Select(&PhoneData, "SELECT `mac`, `name`, INET_NTOA(`ip`) AS ip FROM `unetmap_host` WHERE `type_id` = 3 AND `ip` IS NOT NULL ORDER BY `id` DESC")
+	err := s.Db.Select(&PhoneData, "SELECT `mac`, `name`, INET_NTOA(`ip`) AS ip FROM `unetmap_host` WHERE `type_id` = 3 AND `ip` IS NOT NULL ORDER BY `id` DESC")
 	if err != nil {
 		log.Fatal(err)
 	}
 	SipUserData := make([]SipUser, 0)
-	err = dataBase.Select(&SipUserData, "SELECT `internalnumber`, `description`, `password` FROM `phones_phone` ORDER BY `id` DESC")
+	err = s.Db.Select(&SipUserData, "SELECT `internalnumber`, `description`, `password` FROM `phones_phone` ORDER BY `id` DESC")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -111,8 +110,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		tempStringSip += "<option>" + element.User + " " + element.Description + " " + element.Password + "</option>\n"
 	}
 	listPhone := Page{Phone: tempString, Title: "", SIP1: tempStringSip, SIP2: tempStringSip}
-	w.Header().Set("Content-type", "text/html")
-	t, _ := template.ParseFiles("index.html")
+	t, err := template.ParseFiles("index.html")
 	t.Execute(w, &listPhone)
 
 }
@@ -122,26 +120,33 @@ func exec(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	flag.Parse()
+	err := loadConfig(*configFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	s := server{
+		Db: sqlx.MustConnect("mysql", config.MysqlLogin+":"+config.MysqlPassword+"@tcp("+config.MysqlHost+")/"+config.MysqlDb+"?charset=utf8"),
+	}
 
 	u1 := User{4999, "Ebay", "YAH5", true}
 	u2 := User{0, "", "", false}
 	x := [2]User{u1, u2}
 	ph := Phone{"dlink", "000012121212", "122.123.123.132"}
 	pC := PhoneConf{x, true, 52, true, 9, "2.0006"}
-	_, err := pC.MakeConfig(&ph)
+	_, err = pC.MakeConfig(&ph)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	flag.Parse()
-	err = loadConfig(*configFile)
-	if err != nil {
-		log.Fatal(err)
-	}
-	http.HandleFunc("/", index)
+
+
+	http.HandleFunc("/", s.indexHandler)
 	http.HandleFunc("/exec/", exec)
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	log.Print("Server started at port 4004")
 	err = http.ListenAndServe(":4004", nil)
 	if err != nil {
 		log.Fatal(err)
