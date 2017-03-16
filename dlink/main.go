@@ -3,17 +3,14 @@ package main
 import (
 	"net/http"
 	"text/template"
-
 	"encoding/json"
 	"flag"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
-
-	_ "image/png"
 	"io/ioutil"
 	"log"
-	_ "go/constant"
 	"os"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
 )
 
 var config struct {
