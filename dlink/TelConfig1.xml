@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VOIP_CONFIG_FILE>
+    <version>{{.Version}}</version>
+    <QOS_CONFIG_MODULE>
+        {{if .VlanPhone -}}
+        <Enable_VLAN>1</Enable_VLAN>
+        {{- else}}
+        <Enable_VLAN>0</Enable_VLAN>
+        {{- end}}
+        <VLAN_ID>{{.VlanPhoneNumb}}</VLAN_ID>
+        {{if .VlanComp -}}
+        <VLAN_Recv_Check>1</VLAN_Recv_Check>
+        {{- else}}
+        <VLAN_Recv_Check>0</VLAN_Recv_Check>
+        {{- end}}
+        <PVID_Value>{{.VlanCompNumb}}</PVID_Value>
+    </QOS_CONFIG_MODULE>
+    <DOT1X_CONFIG_MODULE>
+        <Xsup_User>admin</Xsup_User>
+        <Xsup_Password>Eb@l@</Xsup_Password>
+    </DOT1X_CONFIG_MODULE>
+    <SIP_CONFIG_MODULE>
+        <SIP_Line_List>
+            {{range $key, $value := .Users -}}
+            <SIP_Line_List_Entry>
+
+                <ID>SIP{{$key | addOne}}</ID>
+
+                <Phone_Number>{{.UserLog}}</Phone_Number>
+                <Display_Name>{{.UserName}}</Display_Name>
+                <Register_User>{{.UserLog}}</Register_User>
+                <Register_Pswd>{{.UserPas}}</Register_Pswd>
+                {{if .EnableReg -}}
+                <Enable_Reg>1</Enable_Reg>
+                {{- else}}
+                <Enable_Reg>0</Enable_Reg>
+                {{- end}}
+
+
+            </SIP_Line_List_Entry>
+
+            {{- newline}}
+
+
+            {{- end}}
+
+        </SIP_Line_List>
+    </SIP_CONFIG_MODULE>
+</VOIP_CONFIG_FILE>

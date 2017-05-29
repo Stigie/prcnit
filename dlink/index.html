@@ -8,10 +8,10 @@
 </head>
 <body>
 
-<form class="forma" target="_blank" action="/exec/" method="post">
+<form class="forma" target="_blank" name="ff" action="/exec/" method="post">
     <div class="pole pole1">
         <label>Телефон:</label>
-        <select name="ti">
+        <select name="phone">
             {{ range $i, $e := .Phone}}
             {{with $e}}
             <option>{{ .Name }} {{.Mac}} {{.Ip}}</option>
@@ -22,20 +22,22 @@
     <div class="pole pole2">
         <div class="block">
             <label>SIP1:</label>
-            <select name="pidor" class="list_ch">
+            <select name="userPhoneNumber1" class="list_ch">
                 {{ range $i, $e := .SIP1}}
                 {{with $e}}
-                <option>{{ .User }} {{ .Description }}</option>
+                <option>{{ .User }}</option>
                 {{end}}
                 {{end}}
             </select>
+            <label>Добавить второй номер?</label>
+            <input name="SecondSipEnable" type="checkbox" checked>
         </div>
         <div class="block">
             <label>SIP2:</label>
-            <select name="pizdets" class="list_ch">
+            <select name="userPhoneNumber2" class="list_ch">
                 {{ range $i, $e := .SIP2}}
                 {{with $e}}
-                <option>{{ .User }} {{ .Description }}</option>
+                <option>{{ .User }}</option>
                 {{end}}
                 {{end}}
             </select>
@@ -44,18 +46,18 @@
     <div class="block2">
         <div class="pole">
             <label>Добавить VLAN для телефона?</label>
-            <input name="stajer" type="checkbox" checked>
+            <input name="VlanPhone" type="checkbox" checked>
             <label>Номер VLAN</label>
-            <input name="vlanIDtel"  class="pole">
+            <input name="vlanIDtel" type="number" min="0" max="4096" class="pole">
         </div>
         <div class="pole">
             <label>Добавить VLAN для компьютера?</label>
-            <input name="dawnofwar" type="checkbox" checked>
+            <input name="VlanComp" type="checkbox" checked>
             <label>Номер VLAN</label>
-            <input name="vlanIDcomp" class="pole">
+            <input name="vlanIDcomp" type="number" min="0" max="4096" class="pole">
         </div>
-        <div class="pole"><label>Пароль для доступа к Web нтерфейса телефона:</label><input name="HUJSOSI" class="pole"></div>
-        <div class="pole"><label>Имя пользователя телефона:</label><input name="zaebal" class="pole"></div>
+        <div class="pole"><label>Пароль для доступа к Web нтерфейса телефона:</label><input name="WebPass" class="pole"></div>
+        <div class="pole"><label>Имя пользователя телефона:</label><input name="UserPhone" class="pole"></div>
     </div>
     <input type="submit" name="button" value="Execute" />
 </form>
