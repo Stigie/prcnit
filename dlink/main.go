@@ -254,7 +254,8 @@ func (s *server) execHandler(w http.ResponseWriter, r *http.Request) {
 
 	u1 := User{SIP1, SipUserData[0].Password, SipUserData[0].Description, true}
 	u2 := User{}
-	if r.PostForm.Get("SecondSipEnable") == "on" {
+	log.Print("%#v", r.Form)
+	if r.PostForm.Get("SecondSipEnable") == "on" && len(SipUserData) != 1{
 		u2 = User{SIP2, SipUserData[1].Password, SipUserData[1].Description, true}
 	} else {
 		u2 = User{0, "", "", false}
