@@ -1,6 +1,6 @@
-&lt;&lt;?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <VOIP_CONFIG_FILE>
-    <version>2.0013000000000014</version>
+    <version>2.0003</version>
     <GLOBAL_CONFIG_MODULE>
         <WAN_Mode>DHCP</WAN_Mode>
         <WAN_IP></WAN_IP>
@@ -185,13 +185,13 @@
         <SIP_Line_List>
             <SIP_Line_List_Entry>
                 <ID>SIP1</ID>
-                <Phone_Number>4970</Phone_Number>
-                <Display_Name>Сергеева - Алданова</Display_Name>
+                <Phone_Number>3209</Phone_Number>
+                <Display_Name>бывшая 112 кафедра философии и методологии науки</Display_Name>
                 <Sip_Name></Sip_Name>
                 <Register_Addr>v.sgu.ru</Register_Addr>
                 <Register_Port>5060</Register_Port>
-                <Register_User>4970</Register_User>
-                <Register_Pswd>Eb@l@</Register_Pswd>
+                <Register_User>3209</Register_User>
+                <Register_Pswd>chah3Xia</Register_Pswd>
                 <Register_TTL>3600</Register_TTL>
                 <Enable_Reg>1</Enable_Reg>
                 <Proxy_Addr>v.sgu.ru</Proxy_Addr>
@@ -279,15 +279,16 @@
             </SIP_Line_List_Entry>
             <SIP_Line_List_Entry>
                 <ID>SIP2</ID>
-                <Phone_Number>5802</Phone_Number>
-                <Display_Name>bigtuna 105</Display_Name>
+                <Phone_Number>0</Phone_Number>
+                <Display_Name></Display_Name>
                 <Sip_Name></Sip_Name>
                 <Register_Addr>v.sgu.ru</Register_Addr>
                 <Register_Port>5060</Register_Port>
-                <Register_User>5802</Register_User>
-                <Register_Pswd>Eb@l@</Register_Pswd>
+                <Register_User>0</Register_User>
+                <Register_Pswd></Register_Pswd>
                 <Register_TTL>3600</Register_TTL>
-                <Enable_Reg>1</Enable_Reg>
+                
+                <Enable_Reg>0</Enable_Reg>
                 <Proxy_Addr>v.sgu.ru</Proxy_Addr>
                 <Proxy_Port>5060</Proxy_Port>
                 <Proxy_User>4937</Proxy_User>
