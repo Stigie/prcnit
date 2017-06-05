@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <VOIP_CONFIG_FILE>
-<version>{{.Version}}</version>
+<version>2.0023</version>
 <GLOBAL_CONFIG_MODULE>
 <WAN_Mode>DHCP</WAN_Mode>
 <WAN_IP></WAN_IP>
@@ -183,20 +183,17 @@
 <Video_Mute_Attr>0</Video_Mute_Attr>
 <Enable_Group_Backup>0</Enable_Group_Backup>
 <SIP_Line_List>
-{{range $key, $value := .Users -}}
 <SIP_Line_List_Entry>
-<ID>SIP{{$key | addOne}}</ID>
-<Phone_Number>{{.UserLog}}</Phone_Number>
-<Display_Name>{{.UserName}}</Display_Name>
+<ID>SIP1</ID>
+<Phone_Number>5803</Phone_Number>
+<Display_Name></Display_Name>
 <Sip_Name></Sip_Name>
 <Register_Addr>v.sgu.ru</Register_Addr>
 <Register_Port>5060</Register_Port>
-<Register_User>{{.UserLog}}</Register_User>
-<Register_Pswd>{{.UserPas}}</Register_Pswd>
+<Register_User>5803</Register_User>
+<Register_Pswd>Eb@l@</Register_Pswd>
 <Register_TTL>3600</Register_TTL>
-{{if .EnableReg -}}
 <Enable_Reg>1</Enable_Reg>
-{{- else}}<Enable_Reg>0</Enable_Reg>{{- end}}
 <Proxy_Addr>v.sgu.ru</Proxy_Addr>
 <Proxy_Port>5060</Proxy_Port>
 <Proxy_User>4937</Proxy_User>
@@ -279,7 +276,101 @@
 <Caller_Id_Type>1</Caller_Id_Type>
 <Syn_Clock_Time>0</Syn_Clock_Time>
 <Use_VPN>0</Use_VPN>
-</SIP_Line_List_Entry>{{if eq $key 0 }}{{newline}}{{- end}}{{- end}}
+</SIP_Line_List_Entry>
+<SIP_Line_List_Entry>
+<ID>SIP2</ID>
+<Phone_Number>4951</Phone_Number>
+<Display_Name>Управление социальной работы</Display_Name>
+<Sip_Name></Sip_Name>
+<Register_Addr>v.sgu.ru</Register_Addr>
+<Register_Port>5060</Register_Port>
+<Register_User>4951</Register_User>
+<Register_Pswd>Eb@l@</Register_Pswd>
+<Register_TTL>3600</Register_TTL>
+<Enable_Reg>1</Enable_Reg>
+<Proxy_Addr>v.sgu.ru</Proxy_Addr>
+<Proxy_Port>5060</Proxy_Port>
+<Proxy_User>4937</Proxy_User>
+<Proxy_Pswd>Eb@l@</Proxy_Pswd>
+<BakProxy_Addr></BakProxy_Addr>
+<BakProxy_Port>5060</BakProxy_Port>
+<Signal_Crypto>0</Signal_Crypto>
+<SigCrypto_Key></SigCrypto_Key>
+<Media_Crypto>0</Media_Crypto>
+<MedCrypto_Key></MedCrypto_Key>
+<SRTP_Auth-Tag>0</SRTP_Auth-Tag>
+<Local_Domain>v.sgu.ru</Local_Domain>
+<FWD_Type>0</FWD_Type>
+<FWD_Number></FWD_Number>
+<FWD_Timer>2</FWD_Timer>
+<Ring_Type>0</Ring_Type>
+<Hotline_Num></Hotline_Num>
+<Enable_Hotline>0</Enable_Hotline>
+<WarmLine_Time>0</WarmLine_Time>
+<Pickup_Num>0</Pickup_Num>
+<Join_Num>0</Join_Num>
+<NAT_UDPUpdate>1</NAT_UDPUpdate>
+<UDPUpdate_TTL>60</UDPUpdate_TTL>
+<Server_Type>0</Server_Type>
+<User_Agent></User_Agent>
+<PRACK>0</PRACK>
+<Keep_AUTH>0</Keep_AUTH>
+<Session_Timer>0</Session_Timer>
+<S.Timer_Expire>0</S.Timer_Expire>
+<Refresher>0</Refresher>
+<Enable_GRUU>0</Enable_GRUU>
+<DTMF_Mode>1</DTMF_Mode>
+<DTMF_Info_Mode>0</DTMF_Info_Mode>
+<NAT_Type>0</NAT_Type>
+<Enable_Rport>0</Enable_Rport>
+<Subscribe>0</Subscribe>
+<Sub_Expire>3600</Sub_Expire>
+<Single_Codec>0</Single_Codec>
+<CLIR>0</CLIR>
+<Strict_Proxy>0</Strict_Proxy>
+<Direct_Contact>0</Direct_Contact>
+<History_Info>0</History_Info>
+<DNS_SRV>1</DNS_SRV>
+<XFER_Expire>0</XFER_Expire>
+<Ban_Anonymous>0</Ban_Anonymous>
+<Dial_Off_Line>0</Dial_Off_Line>
+<Quota_Name>0</Quota_Name>
+<Presence_Mode>0</Presence_Mode>
+<RFC_Ver>1</RFC_Ver>
+<Signal_Port>0</Signal_Port>
+<Transport>0</Transport>
+<Use_SRV_Mixer>0</Use_SRV_Mixer>
+<SRV_Mixer_Uri></SRV_Mixer_Uri>
+<Long_Contact>0</Long_Contact>
+<Auto_TCP>0</Auto_TCP>
+<Uri_Escaped>1</Uri_Escaped>
+<Click_to_Talk>0</Click_to_Talk>
+<MWI_Num></MWI_Num>
+<CallPark_Num></CallPark_Num>
+<MSRPHelp_Num></MSRPHelp_Num>
+<User_Is_Phone>1</User_Is_Phone>
+<Auto_Answer>0</Auto_Answer>
+<NoAnswerTime>60</NoAnswerTime>
+<MissedCallLog>1</MissedCallLog>
+<SvcCode_Mode>0</SvcCode_Mode>
+<DNDOn_SvcCode></DNDOn_SvcCode>
+<DNDOff_SvcCode></DNDOff_SvcCode>
+<CFUOn_SvcCode></CFUOn_SvcCode>
+<CFUOff_SvcCode></CFUOff_SvcCode>
+<CFBOn_SvcCode></CFBOn_SvcCode>
+<CFBOff_SvcCode></CFBOff_SvcCode>
+<CFNOn_SvcCode></CFNOn_SvcCode>
+<CFNOff_SvcCode></CFNOff_SvcCode>
+<ANCOn_SvcCode></ANCOn_SvcCode>
+<ANCOff_SvcCode></ANCOff_SvcCode>
+<VoiceCodecMap></VoiceCodecMap>
+<BLFList_Uri></BLFList_Uri>
+<BLF_Server></BLF_Server>
+<Enable_BLFList>0</Enable_BLFList>
+<Caller_Id_Type>1</Caller_Id_Type>
+<Syn_Clock_Time>0</Syn_Clock_Time>
+<Use_VPN>0</Use_VPN>
+</SIP_Line_List_Entry>
 </SIP_Line_List>
 </SIP_CONFIG_MODULE>
 <IAX2_CONFIG_MODULE>
@@ -327,27 +418,19 @@
 </MMI_Account>
 </MMI_CONFIG_MODULE>
 <QOS_CONFIG_MODULE>
-{{if .VlanPhone -}}
 <Enable_VLAN>1</Enable_VLAN>
-{{- else}}
-<Enable_VLAN>0</Enable_VLAN>
-{{- end}}
 <Enable_diffServ>0</Enable_diffServ>
 <LLDP_Transmit>0</LLDP_Transmit>
 <LLDP_Refresh_Time>60</LLDP_Refresh_Time>
 <LLDP_Learn_Policy>0</LLDP_Learn_Policy>
 <Singalling_DSCP>46</Singalling_DSCP>
 <Voice_DSCP>46</Voice_DSCP>
-<VLAN_ID>{{.VlanPhoneNumb}}</VLAN_ID>
+<VLAN_ID>52</VLAN_ID>
 <Signalling_Priority>0</Signalling_Priority>
 <Voice_Priority>0</Voice_Priority>
-{{if .VlanComp -}}
 <VLAN_Recv_Check>1</VLAN_Recv_Check>
-{{- else}}
-<VLAN_Recv_Check>0</VLAN_Recv_Check>
-{{- end}}
 <Enable_PVID>2</Enable_PVID>
-<PVID_Value>{{.VlanCompNumb}}</PVID_Value>
+<PVID_Value>9</PVID_Value>
 </QOS_CONFIG_MODULE>
 <DEBUG_CONFIG_MODULE>
 <MGR_Trace_Level>0</MGR_Trace_Level>
