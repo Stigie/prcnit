@@ -66,7 +66,7 @@ type server struct {
 }
 
 func newline() string {
-	return "\n            "
+	return "\n"
 }
 
 func exists(path string) (bool, error) {
