@@ -81,11 +81,11 @@ func exists(path string) (bool, error) {
 }
 
 func (c *PhoneConf) MakeConfig(pf *Phone) (string, error) {
-	fmap := texttemplate.FuncMap{
+	functionMap := texttemplate.FuncMap{
 		"addOne":  addOne,
 		"newline": newline,
 	}
-	latexTemplate, err := texttemplate.New("Config template").Funcs(fmap).ParseFiles("TelConfig.xml")
+	latexTemplate, err := texttemplate.New("Config template").Funcs(functionMap).ParseFiles("TelConfig.xml")
 	if err != nil {
 		return "", err
 	}
@@ -97,8 +97,8 @@ func (c *PhoneConf) MakeConfig(pf *Phone) (string, error) {
 		}
 		defer file.Close()
 		f := bufio.NewReader(file)
-		var i = 0;
-		var read_line string;
+		var i = 0
+		var read_line string
 		for i < 3 {
 			read_line, err2 = f.ReadString('\n')
 			if err2 != nil {
@@ -223,14 +223,14 @@ func (s *server) execHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-	log.Print(SIP1);
-	log.Print(SIP2);
-	log.Print(vlanIDcomp);
-	log.Println(vlanIDtel);
-	MacAddr := r.PostForm.Get("phone");
-	start := strings.Index(MacAddr, " ");
+	log.Print(SIP1)
+	log.Print(SIP2)
+	log.Print(vlanIDcomp)
+	log.Println(vlanIDtel)
+	MacAddr := r.PostForm.Get("phone")
+	start := strings.Index(MacAddr, " ")
 	MacAddr = MacAddr[start+1:];
-	start = strings.Index(MacAddr, " ");
+	start = strings.Index(MacAddr, " ")
 	MacAddr = cut(MacAddr, start);
 	MacAddr = strings.ToUpper(MacAddr);
 	log.Println(MacAddr)
@@ -255,27 +255,25 @@ func (s *server) execHandler(w http.ResponseWriter, r *http.Request) {
 	u1 := User{SIP1, SipUserData[0].Password, SipUserData[0].Description, true}
 	u2 := User{}
 	log.Print("%#v", r.Form)
-	if r.PostForm.Get("SecondSipEnable") == "on" && len(SipUserData) != 1{
+	if r.PostForm.Get("SecondSipEnable") == "on" && len(SipUserData) != 1 {
 		u2 = User{SIP2, SipUserData[1].Password, SipUserData[1].Description, true}
 	} else {
 		u2 = User{0, "", "", false}
 	}
 	x := [2]User{u1, u2}
 	ph := Phone{r.PostForm.Get("UserPhone"), MacAddr, "122.123.123.132"}
-	pC := PhoneConf{x, on_to_bool(r.PostForm.Get("VlanPhone")), vlanIDtel, on_to_bool(r.PostForm.Get("VlanComp")), vlanIDcomp, 2.003}
+	pC := PhoneConf{x, isOn(r.PostForm.Get("VlanPhone")), vlanIDtel, isOn(r.PostForm.Get("VlanComp")), vlanIDcomp, 2.003}
 	_, err = pC.MakeConfig(&ph)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
-func on_to_bool(chbox string) bool{
-	//var t bool;
-	if chbox == "on" {
+func isOn(checkBox string) bool {
+	if checkBox == "on" {
 		return true
 	} else {
 		return false
 	}
-	//return t
 }
 func cut(text string, limit int) string {
 	runes := []rune(text)
