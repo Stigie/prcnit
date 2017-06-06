@@ -262,12 +262,20 @@ func (s *server) execHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	x := [2]User{u1, u2}
 	ph := Phone{r.PostForm.Get("UserPhone"), MacAddr, "122.123.123.132"}
-	pC := PhoneConf{x, true, 52, true, 9, 2.0006}
+	pC := PhoneConf{x, on_to_bool(r.PostForm.Get("VlanPhone")), vlanIDtel, on_to_bool(r.PostForm.Get("VlanComp")), vlanIDcomp, 2.003}
 	_, err = pC.MakeConfig(&ph)
 	if err != nil {
 		log.Fatal(err)
 	}
-
+}
+func on_to_bool(chbox string) bool{
+	//var t bool;
+	if chbox == "on" {
+		return true
+	} else {
+		return false
+	}
+	//return t
 }
 func cut(text string, limit int) string {
 	runes := []rune(text)
